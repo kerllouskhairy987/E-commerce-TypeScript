@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             {
-                path: "products/:prefix",
+                path: "categories/products/:prefix",
                 element: <Products />,
                 loader: async ({ params }) => {
                     console.log(params)
