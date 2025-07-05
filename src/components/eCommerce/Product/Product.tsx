@@ -19,5 +19,5 @@ const Product = () => {
         </div>
     )
 }
-
+// https://github.com/kerllouskhairy987/E-commerce-TypeScript.git
 export default Product
