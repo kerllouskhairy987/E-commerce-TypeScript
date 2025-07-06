@@ -5,12 +5,12 @@ import { useParams } from "react-router"
 import type { IProduct } from "@/interfaces"
 // bootstrap component
 import actGetProductsByCatPrefix from "@/store/products/act/actGetProductsByCatPrefix"
-import { Container, Row, Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 // components
 import Product from "@/components/eCommerce/Product/Product"
-import Error from "./Error"
-import { ProductSkeleton } from "@/skeleton/skeleton"
 import { productsCleanUp } from "@/store/products/productsSlice"
+import { LoadingAndErrorProducts } from "@/components/feedback/LoadingAndError/LoadingAndError"
+import GridList from "@/components/common/GridList/GridList"
 
 const Products = () => {
 
@@ -24,22 +24,21 @@ const Products = () => {
     return () => { dispatch(productsCleanUp()) }
   }, [dispatch, prefix])
 
-  // renders
-  const renderProducts = records.length > 0 ? records.map((pro: IProduct) => (
-    <Col key={pro.id} md={3} xs={6} className="d-flex justify-content-center mb-5 mt-2">
-      <Product {...pro} />
-    </Col>
-  )
-  ) : <h2 className="text-center text-info">there are no categories</h2>
-
-  if (loading === "pending") return <ProductSkeleton />
-  if (loading === "failed") return <Error />
+  // // renders
+  // const renderProducts = records.length > 0 ? records.map((pro: IProduct) => (
+  //   <Col key={pro.id} md={3} xs={6} className="d-flex justify-content-center mb-5 mt-2">
+  //     <Product {...pro} />
+  //   </Col>
+  // )
+  // ) : <h2 className="text-center text-info">there are no categories</h2>
 
   return (
     <Container>
-      <Row>
-        {renderProducts}
-      </Row>
+      <LoadingAndErrorProducts status={loading} error={error}>
+        <GridList<IProduct> records={records} renderItems={(pro: IProduct) => <Product {...pro} />} />
+        {/* Update with Generic */}
+        {/* <Row> {renderProducts} </Row> */}
+      </LoadingAndErrorProducts>
     </Container>
   )
 }
