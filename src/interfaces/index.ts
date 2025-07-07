@@ -9,6 +9,8 @@ export interface IProduct {
     id: number,
     title: string,
     cat_prefix: string;
-    price: string,
+    price: number,
     img: string;
+    max?: number;
+    quantity?: number;
 }

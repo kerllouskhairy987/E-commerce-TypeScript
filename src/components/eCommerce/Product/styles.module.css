@@ -6,7 +6,7 @@
     justify-content: space-between;
 }
 
-.productImg  {
+.productImg {
     height: 180px;
     width: 100%;
     object-fit: cover;
@@ -29,7 +29,48 @@
     text-overflow: ellipsis;
 }
 
-.product h3 {
-    font-size: 13px;
-    width: 100%;
+.product {
+    h3 {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    p {
+        font-size: 12px;
+        width: 100%;
+    }
+}
+
+.disabledBtn {
+    color: "white";
+    animation: pumping 300ms ease-out;
+    white-space: nowrap;
+}
+
+@keyframes pumping {
+    0% {
+        cursor: pointer;
+        transform: scale(1);
+
+    }
+
+    20% {
+        cursor: not-allowed;
+        transform: scale(0.9);
+    }
+
+    30% {
+        cursor: not-allowed;
+        transform: scale(0.8);
+    }
+
+    50% {
+        cursor: not-allowed;
+        transform: scale(0.9);
+    }
+
+    100% {
+        cursor: pointer;
+        transform: scale(1);
+    }
 }

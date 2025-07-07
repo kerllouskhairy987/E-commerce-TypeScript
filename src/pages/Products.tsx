@@ -11,13 +11,17 @@ import Product from "@/components/eCommerce/Product/Product"
 import { productsCleanUp } from "@/store/products/productsSlice"
 import { LoadingAndErrorProducts } from "@/components/feedback/LoadingAndError/LoadingAndError"
 import GridList from "@/components/common/GridList/GridList"
+import Heading from "@/components/common/Heading/Heading"
 
 const Products = () => {
 
   const { prefix } = useParams()
   const dispatch = useAppDispatch()
   const { loading, records, error } = useAppSelector(state => state.products)
-  console.log(loading, records, error)
+  // console.log(loading, records, error)
+
+  const cartItems = useAppSelector(state => state.cart.items)
+  const cartItemsQuantity = records.map((el) => ({ ...el, quantity: cartItems[el.id] || 0 }))
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(`${prefix}`))
@@ -34,8 +38,9 @@ const Products = () => {
 
   return (
     <Container>
+      <Heading>{prefix} Products</Heading>
       <LoadingAndErrorProducts status={loading} error={error}>
-        <GridList<IProduct> records={records} renderItems={(pro: IProduct) => <Product {...pro} />} />
+        <GridList<IProduct> records={cartItemsQuantity} renderItems={(pro: IProduct) => <Product {...pro} />} />
         {/* Update with Generic */}
         {/* <Row> {renderProducts} </Row> */}
       </LoadingAndErrorProducts>

@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
                 path: "categories/products/:prefix",
                 element: <Products />,
                 loader: async ({ params }) => {
-                    console.log(params)
+                    // console.log(params)
                     if (typeof params.prefix !== "string" || !/^[a-z]+$/i.test(params.prefix)) {
                         throw new Response("Bad Request", {
                             statusText: "Category not found",

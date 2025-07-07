@@ -9,10 +9,36 @@
     height: 22px;
     width: 22px;
     border-radius: 10px;
-    border: 1px solid;    
+    border: 1px solid;
     position: absolute;
     top: -16px;
     right: -5px;
     font-size: 12px;
     text-align: center;
+}
+
+.pumpCartQuantity {
+    animation: pumping 300ms ease-out;
+}
+
+@keyframes pumping {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(0.8);
+    }
+
+    30% {
+        transform: scale(1.1);
+    }
+
+    50% {
+        transform: scale(1.7);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

@@ -12,12 +12,13 @@ import type { ICategory } from "@/interfaces"
 import Category from "@/components/eCommerce/Category/Category"
 import { LoadingAndErrorCategories } from "@/components/feedback/LoadingAndError/LoadingAndError"
 import GridList from "@/components/common/GridList/GridList"
+import Heading from "@/components/common/Heading/Heading"
 
 const Categories = () => {
 
   const dispatch = useAppDispatch()
   const { loading, records, error } = useAppSelector(state => state.categories)
-  console.log(loading, records, error)
+  // console.log(loading, records, error)
 
   useEffect(() => {
     if (!records.length) {
@@ -27,6 +28,7 @@ const Categories = () => {
 
   return (
     <Container>
+      <Heading>Categories</Heading>
       <LoadingAndErrorCategories status={loading} error={error}>
         <GridList<ICategory> records={records} renderItems={(cat: ICategory) => <Category {...cat} />} />
       </LoadingAndErrorCategories>

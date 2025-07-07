@@ -47,6 +47,4 @@ export const ProductsSlice = createSlice({
 
 export const { productsCleanUp } = ProductsSlice.actions
 
-// export const selectCount = (state: RootState) => state.counter.value
-
 export default ProductsSlice.reducer
