@@ -10,7 +10,7 @@ import { actGetCategories } from "@/store/categories/categoriesSlice"
 import type { ICategory } from "@/interfaces"
 // components
 import Category from "@/components/eCommerce/Category/Category"
-import { LoadingAndErrorCategories } from "@/components/feedback/LoadingAndError/LoadingAndError"
+import { LoadingAndErrorCategories } from "@/components/feedback/LoadingAndErrorCategories/LoadingAndErrorCategories"
 import GridList from "@/components/common/GridList/GridList"
 import Heading from "@/components/common/Heading/Heading"
 

@@ -13,11 +13,11 @@ import { Provider } from 'react-redux'
 import "@/styles/global.css"
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>
-  </StrictMode>,
+  // </StrictMode>,
 )

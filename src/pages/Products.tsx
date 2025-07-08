@@ -9,9 +9,9 @@ import { Container } from "react-bootstrap"
 // components
 import Product from "@/components/eCommerce/Product/Product"
 import { productsCleanUp } from "@/store/products/productsSlice"
-import { LoadingAndErrorProducts } from "@/components/feedback/LoadingAndError/LoadingAndError"
 import GridList from "@/components/common/GridList/GridList"
 import Heading from "@/components/common/Heading/Heading"
+import { LoadingAndErrorProducts } from "@/components/feedback/LoadingAndErrorProducts/LoadingAndErrorProducts"
 
 const Products = () => {
 

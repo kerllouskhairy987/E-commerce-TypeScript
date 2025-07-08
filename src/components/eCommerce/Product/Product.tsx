@@ -22,7 +22,7 @@ const Product = memo(({ id, max, img, price, title, quantity }: IProduct) => { /
     const quantityRetchToMax = currentRemainingQuantity === 0;
     const quantityRetchToMaxStyle = `${disabledBtnAnimate} ${quantityRetchToMax ? "bg-danger not-allowed" : ""}`
 
-    
+
     const addToCartHandler = () => {
         setIsDisabled(true)
         dispatch(addToCart(id))
@@ -33,14 +33,14 @@ const Product = memo(({ id, max, img, price, title, quantity }: IProduct) => { /
 
         return () => clearTimeout(debounce)
     }
-console.log(typeof price)
+
     return (
         <div className={product}>
             <div className={productImg}>
                 <img src={img} alt={title} />
             </div>
             <h2 title={title}>{title}</h2>
-            <h3>{price.toFixed(2)} EGP</h3>
+            <h3>{Number(price).toFixed(2)} EGP</h3>
             <p>
                 {currentRemainingQuantity > 0 ? (
                     <>

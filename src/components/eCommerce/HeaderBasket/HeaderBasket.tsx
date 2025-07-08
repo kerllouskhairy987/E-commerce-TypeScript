@@ -6,6 +6,7 @@ import { useAppSelector } from "@/store/hooks"
 import { getCartTotalQuantitySelector } from "@/store/cart/cartSlice"
 // styles
 import styles from "./styles.module.css"
+import { NavLink } from "react-router"
 const { basketContainer, basketQuantity, pumpCartQuantity } = styles
 
 const HeaderBasket = () => {
@@ -28,8 +29,10 @@ const HeaderBasket = () => {
 
     return (
         <div className={basketContainer}>
-            <Logo />
-            <div className={basketQuantityWithAnimate}>{totalQuantity}</div>
+            <NavLink to="/cart">
+                <Logo />
+                <div className={basketQuantityWithAnimate}>{totalQuantity}</div>
+            </NavLink>
         </div>
     )
 }
