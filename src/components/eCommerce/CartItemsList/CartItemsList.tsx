@@ -8,7 +8,6 @@ interface IProps {
 }
 
 const CartItemsList = ({ products, changeQuantityHandler, removeItemHandler }: IProps) => {
-    // console.log("from cart items list", products)
     const renderCartProductsList = products.map((pro) => <CartItem key={pro.id} {...pro} changeQuantityHandler={changeQuantityHandler} removeItemHandler={removeItemHandler} />)
     return renderCartProductsList
 }

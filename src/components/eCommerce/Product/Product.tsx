@@ -8,13 +8,18 @@ import { addToCart } from "@/store/cart/cartSlice"
 import { Button, Spinner } from "react-bootstrap"
 // interfaces and types
 import type { IProduct } from "@/interfaces"
+// logo
+import Like from "@/assets/svg/like.svg?react";
+import LikeFill from "@/assets/svg/like-fill.svg?react";
 // styles
 import styles from "./styles.module.css"
-const { product, productImg, disabledBtn } = styles
+import actGetWishlist from "@/store/wishlist/act/actLikeToggle"
+const { product, productImg, disabledBtn, wishlistBtn } = styles
 
 
-const Product = memo(({ id, max, img, price, title, quantity }: IProduct) => { // cat_prefix,
+const Product = memo(({ id, max, img, price, title, quantity, isLiked }: IProduct) => { // cat_prefix,
     const [isDisabled, setIsDisabled] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
 
     const disabledBtnAnimate = `${isDisabled ? disabledBtn : ""}`
@@ -33,9 +38,19 @@ const Product = memo(({ id, max, img, price, title, quantity }: IProduct) => { /
 
         return () => clearTimeout(debounce)
     }
-
+    const likeToggle = () => {
+        if(isLoading) return;
+        setIsLoading(true)
+        dispatch(actGetWishlist(id)).unwrap()
+            .then(() => setIsLoading(false))
+            .catch(() => setIsLoading(false))
+    }
     return (
         <div className={product}>
+            <div className={wishlistBtn} onClick={likeToggle}>
+                {isLoading ? <Spinner animation="border" size="sm" variant="primary" /> : isLiked ? <LikeFill /> : <Like />}
+            </div>
+
             <div className={productImg}>
                 <img src={img} alt={title} />
             </div>

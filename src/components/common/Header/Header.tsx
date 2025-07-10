@@ -1,15 +1,19 @@
 // react bootstrap
 import { Badge, Container, Nav, Navbar } from "react-bootstrap"
 // components
-import HeaderBasket from "@/components/eCommerce/HeaderBasket/HeaderBasket";
+import HeaderLeftBar from "./HeaderCounter/HeaderLeftBar/HeaderLeftBar";
 // react router dom
 import { NavLink } from "react-router";
+
 // styles 
 import styles from "./styles.module.css"
-const { headerContainer, headerLogo } = styles;
+const { headerContainer, headerLogo, headerLeftBar } = styles;
+
 
 
 const Header = () => {
+
+    console.log("header")
     return (
         <header>
             <div className={headerContainer}>
@@ -19,7 +23,7 @@ const Header = () => {
                     </NavLink>
                 </h1>
 
-                <HeaderBasket />
+                <div className={headerLeftBar}> <HeaderLeftBar /> </div>
             </div>
             <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
                 <Container>

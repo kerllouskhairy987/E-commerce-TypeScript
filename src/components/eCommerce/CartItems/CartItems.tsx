@@ -15,7 +15,6 @@ type IProps = IProduct & {
 }
 
 const CartItem = memo(({ id, img, price, title, max, quantity, changeQuantityHandler, removeItemHandler }: IProps) => {
-    console.log("render")
 
     // handlers
     const changeQuantity = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {

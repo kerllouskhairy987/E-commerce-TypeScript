@@ -1,37 +1,23 @@
-// react hooks
-import { useEffect } from "react"
 // bootstrap component
 import { Container } from "react-bootstrap"
-// redux hooks
-import { useAppDispatch, useAppSelector } from "@/store/hooks"
-// redux actions
-import { actGetCategories } from "@/store/categories/categoriesSlice"
 // interfaces and types
 import type { ICategory } from "@/interfaces"
 // components
 import Category from "@/components/eCommerce/Category/Category"
-import { LoadingAndErrorCategories } from "@/components/feedback/LoadingAndErrorCategories/LoadingAndErrorCategories"
+import { LoadingAndError } from "@/components/feedback/LoadingAndError/LoadingAndError"
 import GridList from "@/components/common/GridList/GridList"
 import Heading from "@/components/common/Heading/Heading"
+import useCategories from "@/hooks/useCategories"
 
 const Categories = () => {
 
-  const dispatch = useAppDispatch()
-  const { loading, records, error } = useAppSelector(state => state.categories)
-  // console.log(loading, records, error)
-
-  useEffect(() => {
-    if (!records.length) {
-      dispatch(actGetCategories())
-    }
-  }, [dispatch, records])
-
+  const { loading, records, error } = useCategories()
   return (
     <Container>
-      <Heading>Categories</Heading>
-      <LoadingAndErrorCategories status={loading} error={error}>
-        <GridList<ICategory> records={records} renderItems={(cat: ICategory) => <Category {...cat} />} />
-      </LoadingAndErrorCategories>
+      <Heading title="Categories" />
+      <LoadingAndError type="category" status={loading} error={error}>
+        <GridList<ICategory> empty="products" records={records} renderItems={(cat: ICategory) => <Category {...cat} />} />
+      </LoadingAndError>
     </Container>
 
   )

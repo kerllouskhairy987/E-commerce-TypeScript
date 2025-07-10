@@ -13,4 +13,5 @@ export interface IProduct {
     img: string;
     max?: number;
     quantity?: number;
+    isLiked?: boolean;
 }

@@ -1,8 +1,8 @@
-import Products from "./Products"
+import Heading from "@/components/common/Heading/Heading"
 
 const Home = () => {
   return (
-    <div> <Products /> </div>
+    <Heading title="Home" />
   )
 }
 

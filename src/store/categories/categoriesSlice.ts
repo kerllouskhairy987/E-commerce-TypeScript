@@ -19,7 +19,11 @@ const initialState: ICategoriesState = {
 export const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {},
+    reducers: {
+        categoryCleanUp: (state) => {
+            state.records = []
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(actGetCategories.pending, (state) => {
@@ -40,8 +44,8 @@ export const categoriesSlice = createSlice({
             })
     }
 })
-export {actGetCategories};
-// export const { } = categoriesSlice.actions
+export { actGetCategories };
+export const { categoryCleanUp } = categoriesSlice.actions
 
 // export const selectCount = (state: RootState) => state.counter.value
 
