@@ -32,8 +32,8 @@ const LottieHandlers = ({ type, message, error = true }: IProps) => {
         <Container>
 
             <div className="d-flex flex-column justify-content-center align-content-center text-center mb-5" style={{ maxHeight: "100vh" }}>
-                {message && <h3 style={{ fontSize: "19px" }}>{message}</h3>}
                 <Lottie animationData={Component} loop={true} style={{ maxWidth: "400px", height: "400px", margin: "0 auto" }} />
+                {message && <h3 style={{ fontSize: "19px", marginTop: "20px" }}>{message}</h3>}
                 {error &&
                     <div className='d-flex align-items-center justify-content-center gap-3'>
                         <Link to={"/"} replace={true}>

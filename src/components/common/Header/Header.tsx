@@ -13,13 +13,12 @@ const { headerContainer, headerLogo, headerLeftBar } = styles;
 
 const Header = () => {
 
-    console.log("header")
     return (
         <header>
             <div className={headerContainer}>
                 <h1 className={headerLogo}>
                     <NavLink to={"/"}>
-                        <span>our</span> <Badge bg="info">Ecom</Badge>
+                        <span>Our</span> <Badge bg="info">eCom</Badge>
                     </NavLink>
                 </h1>
 
