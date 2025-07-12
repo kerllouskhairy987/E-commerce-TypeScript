@@ -6,7 +6,14 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import persistStore from 'redux-persist/es/persistStore'
 import wishlistSlice from './wishlist/wishlistSlice'
+import authSlice from './auth/authSlice'
 
+// root persist
+const rootPersistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['cart', 'auth']
+}
 
 // nesting persist
 const cartPersistConfig = {
@@ -15,22 +22,25 @@ const cartPersistConfig = {
     whitelist: ['items']
 }
 
-const wishlistPersistConfig = {
-    key: 'wishlist',
-    storage: storage,
-    whitelist: ['itemsId']
+const authPersistConfig = {
+    key: 'auth',
+    storage,
+    whitelist: ['user', 'accessToken']
 }
 
 const rootReducer = combineReducers({
+    auth: persistReducer(authPersistConfig, authSlice),
     categories: categoriesSlice,
     products: ProductsSlice,
     cart: persistReducer(cartPersistConfig, cartSlice),
-    wishlist: persistReducer(wishlistPersistConfig, wishlistSlice),
+    wishlist: wishlistSlice,
 })
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer)
 
 
 const store = configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {

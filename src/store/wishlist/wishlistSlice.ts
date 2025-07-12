@@ -3,6 +3,7 @@ import actLikeToggle from "./act/actLikeToggle"
 import actGetWishlist from "./act/actGetWishlist";
 import type { TLoading } from "@/types";
 import type { IProduct } from "@/interfaces";
+import { logout } from "../auth/authSlice";
 
 interface IWishlistState {
     itemsId: number[];
@@ -55,7 +56,14 @@ export const wishlistSlice = createSlice({
         });
         builder.addCase(actGetWishlist.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.productsFullInfo = action.payload;
+            if (action.payload.dataType === "productsFullInfo") {
+                state.productsFullInfo = action.payload.data as IProduct[]
+            } else if (action.payload.dataType === "productsIds") {
+                state.itemsId = action.payload.data as number[];
+            } else {
+                state.itemsId = []
+                state.productsFullInfo = []
+            }
         });
         builder.addCase(actGetWishlist.rejected, (state, action) => {
             state.loading = "failed";
@@ -63,6 +71,12 @@ export const wishlistSlice = createSlice({
                 state.error = action.payload;
             }
         });
+
+        // when logout reset
+        builder.addCase(logout, (state) => {
+            state.itemsId = []
+            state.productsFullInfo = []
+        })
     }
 })
 

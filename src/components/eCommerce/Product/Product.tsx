@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/store/hooks"
 // actions
 import { addToCart } from "@/store/cart/cartSlice"
 // react bootstrap component
-import { Button, Spinner } from "react-bootstrap"
+import { Button, Modal, Spinner } from "react-bootstrap"
 // interfaces and types
 import type { IProduct } from "@/interfaces"
 // logo
@@ -17,10 +17,14 @@ import actGetWishlist from "@/store/wishlist/act/actLikeToggle"
 const { product, productImg, disabledBtn, wishlistBtn } = styles
 
 
-const Product = memo(({ id, max, img, price, title, quantity, isLiked }: IProduct) => { // cat_prefix,
+const Product = memo(({ id, max, img, price, title, quantity, isLiked, isAuthenticated }: IProduct) => { // cat_prefix,
     const [isDisabled, setIsDisabled] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const [show, setShow] = useState(false);
+
     const dispatch = useAppDispatch();
+
+    const handleClose = () => setShow(false);
 
     const disabledBtnAnimate = `${isDisabled ? disabledBtn : ""}`
     const currentRemainingQuantity = max ? max - (quantity ?? 0) : 0;
@@ -39,37 +43,56 @@ const Product = memo(({ id, max, img, price, title, quantity, isLiked }: IProduc
         return () => clearTimeout(debounce)
     }
     const likeToggle = () => {
-        if(isLoading) return;
-        setIsLoading(true)
-        dispatch(actGetWishlist(id)).unwrap()
-            .then(() => setIsLoading(false))
-            .catch(() => setIsLoading(false))
+        if (isLoading) return;
+        if (isAuthenticated) {
+            setIsLoading(true)
+            dispatch(actGetWishlist(id)).unwrap()
+                .then(() => setIsLoading(false))
+                .catch(() => setIsLoading(false))
+        } else {
+            setShow(true);
+        }
+
     }
     return (
-        <div className={product}>
-            <div className={wishlistBtn} onClick={likeToggle}>
-                {isLoading ? <Spinner animation="border" size="sm" variant="primary" /> : isLiked ? <LikeFill /> : <Like />}
-            </div>
+        <>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Notification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you must login first!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
-            <div className={productImg}>
-                <img src={img} alt={title} />
-            </div>
-            <h2 title={title}>{title}</h2>
-            <h3>{Number(price).toFixed(2)} EGP</h3>
-            <p>
-                {currentRemainingQuantity > 0 ? (
-                    <>
-                        you can add <span className="text-info"> {currentRemainingQuantity}</span> items
-                    </>
-                ) : (
-                    <span className="text-danger">out of stock</span>
-                )}
-            </p>
+            <div className={product}>
+                <div className={wishlistBtn} onClick={likeToggle}>
+                    {isLoading ? <Spinner animation="border" size="sm" variant="primary" /> : isLiked ? <LikeFill /> : <Like />}
+                </div>
 
-            <Button disabled={isDisabled || quantityRetchToMax} variant="info" style={{ color: "white", whiteSpace: "nowrap" }} onClick={addToCartHandler} className={quantityRetchToMaxStyle}>
-                {isDisabled ? <><Spinner animation="border" size="sm" /> Loading ...</> : quantityRetchToMax ? "out of stock" : "add to cart"}
-            </Button>
-        </div>
+                <div className={productImg}>
+                    <img src={img} alt={title} />
+                </div>
+                <h2 title={title}>{title}</h2>
+                <h3>{Number(price).toFixed(2)} EGP</h3>
+                <p>
+                    {currentRemainingQuantity > 0 ? (
+                        <>
+                            you can add <span className="text-info"> {currentRemainingQuantity}</span> items
+                        </>
+                    ) : (
+                        <span className="text-danger">out of stock</span>
+                    )}
+                </p>
+
+                <Button disabled={isDisabled || quantityRetchToMax} variant="info" style={{ color: "white", whiteSpace: "nowrap" }} onClick={addToCartHandler} className={quantityRetchToMaxStyle}>
+                    {isDisabled ? <><Spinner animation="border" size="sm" /> Loading ...</> : quantityRetchToMax ? "out of stock" : "add to cart"}
+                </Button>
+            </div>
+        </>
     )
 })
 

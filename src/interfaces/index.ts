@@ -14,4 +14,5 @@ export interface IProduct {
     max?: number;
     quantity?: number;
     isLiked?: boolean;
+    isAuthenticated?: boolean;
 }
