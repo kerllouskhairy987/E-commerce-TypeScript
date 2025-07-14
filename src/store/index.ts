@@ -1,12 +1,14 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import categoriesSlice from './categories/categoriesSlice'
 import ProductsSlice from './products/productsSlice'
 import cartSlice from './cart/cartSlice'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web 
-import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import persistStore from 'redux-persist/es/persistStore'
 import wishlistSlice from './wishlist/wishlistSlice'
 import authSlice from './auth/authSlice'
+import orderSlice from './order/orderSlice'
+
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 
 // root persist
 const rootPersistConfig = {
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
     products: ProductsSlice,
     cart: persistReducer(cartPersistConfig, cartSlice),
     wishlist: wishlistSlice,
+    order: orderSlice,
 })
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer)

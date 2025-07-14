@@ -17,8 +17,6 @@ const actGetWishlist = createAsyncThunk("wishlist/actGetWishlist", async (dataTy
             `wishlist?userId=${auth.user?.id}`, { signal }
         );
 
-        console.log("here", userWishlist)
-
         if (!userWishlist.data.length) {
             return { data: [], dataType: "empty" }
         }

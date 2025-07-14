@@ -3,7 +3,10 @@ import { lazy, Suspense } from "react";
 // react router
 import { createBrowserRouter } from "react-router";
 // lazy loading pages
+// Layout
 const MainLayout = lazy(() => import("@/layouts/MainLayout/MainLayout"))
+const ProfileLayout = lazy(() => import("@/layouts/ProfileLayout/ProfileLayout"))
+// pages
 const AboutUs = lazy(() => import("@/pages/AboutUs"))
 const Cart = lazy(() => import("@/pages/Cart"))
 const Categories = lazy(() => import("@/pages/Categories"))
@@ -12,7 +15,9 @@ const Products = lazy(() => import("@/pages/Products"))
 const Login = lazy(() => import("@/pages/Login"))
 const Register = lazy(() => import("@/pages/Register"))
 const Wishlist = lazy(() => import("@/pages/Wishlist"))
-const Profile = lazy(() => import("@/pages/Profile"))
+const Account = lazy(() => import("@/pages/Account"))
+const Orders = lazy(() => import("@/pages/Orders"))
+// error
 import Error from "@/pages/Error";
 
 import PageSuspenseFallback from "@/components/feedback/PageSuspenseFallback/PageSuspenseFallback";
@@ -65,9 +70,13 @@ export const router = createBrowserRouter([
                 path: "profile", element:
                     <ProtectingRoute>
                         <PageSuspenseFallback>
-                            <Profile />
+                            <ProfileLayout />
                         </PageSuspenseFallback>
-                    </ProtectingRoute>
+                    </ProtectingRoute>,
+                    children: [
+                        {index: true, element: <Account />},
+                        {path: "orders", element: <Orders />}
+                    ]
             },
         ]
     },

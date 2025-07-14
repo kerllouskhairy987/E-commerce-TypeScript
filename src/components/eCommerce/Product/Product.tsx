@@ -6,6 +6,8 @@ import { useAppDispatch } from "@/store/hooks"
 import { addToCart } from "@/store/cart/cartSlice"
 // react bootstrap component
 import { Button, Modal, Spinner } from "react-bootstrap"
+// components
+import ProductInfo from "../ProductInfo/ProductInfo"
 // interfaces and types
 import type { IProduct } from "@/interfaces"
 // logo
@@ -14,7 +16,7 @@ import LikeFill from "@/assets/svg/like-fill.svg?react";
 // styles
 import styles from "./styles.module.css"
 import actGetWishlist from "@/store/wishlist/act/actLikeToggle"
-const { product, productImg, disabledBtn, wishlistBtn } = styles
+const { disabledBtn, wishlistBtn } = styles
 
 
 const Product = memo(({ id, max, img, price, title, quantity, isLiked, isAuthenticated }: IProduct) => { // cat_prefix,
@@ -68,16 +70,11 @@ const Product = memo(({ id, max, img, price, title, quantity, isLiked, isAuthent
                 </Modal.Footer>
             </Modal>
 
-            <div className={product}>
+            <ProductInfo title={title} img={img} price={price} direction="row">
                 <div className={wishlistBtn} onClick={likeToggle}>
                     {isLoading ? <Spinner animation="border" size="sm" variant="primary" /> : isLiked ? <LikeFill /> : <Like />}
                 </div>
 
-                <div className={productImg}>
-                    <img src={img} alt={title} />
-                </div>
-                <h2 title={title}>{title}</h2>
-                <h3>{Number(price).toFixed(2)} EGP</h3>
                 <p>
                     {currentRemainingQuantity > 0 ? (
                         <>
@@ -88,10 +85,10 @@ const Product = memo(({ id, max, img, price, title, quantity, isLiked, isAuthent
                     )}
                 </p>
 
-                <Button disabled={isDisabled || quantityRetchToMax} variant="info" style={{ color: "white", whiteSpace: "nowrap" }} onClick={addToCartHandler} className={quantityRetchToMaxStyle}>
+                <Button disabled={isDisabled || quantityRetchToMax} variant="info" style={{ color: "white", whiteSpace: "nowrap", width: "100%" }} onClick={addToCartHandler} className={quantityRetchToMaxStyle}>
                     {isDisabled ? <><Spinner animation="border" size="sm" /> Loading ...</> : quantityRetchToMax ? "out of stock" : "add to cart"}
                 </Button>
-            </div>
+            </ProductInfo>
         </>
     )
 })

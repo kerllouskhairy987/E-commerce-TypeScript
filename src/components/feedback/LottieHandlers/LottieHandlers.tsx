@@ -8,6 +8,8 @@ import EmptyWishlist from "@/assets/lottieFiles/EmptyWishlist.json"
 import LazyLoading from "@/assets/lottieFiles/LazyLoading.json"
 import NotFound from "@/assets/lottieFiles/NotFound.json"
 import Error from "@/assets/lottieFiles/Error.json"
+import Success from "@/assets/lottieFiles/Success.json"
+import EmptyOrders from "@/assets/lottieFiles/EmptyOrders.json"
 
 
 const lottieFilesMap = {
@@ -17,6 +19,8 @@ const lottieFilesMap = {
     LazyLoading,
     NotFound,
     Error,
+    Success,
+    EmptyOrders,
 }
 
 interface IProps {

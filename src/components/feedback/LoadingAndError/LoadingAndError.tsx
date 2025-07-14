@@ -3,13 +3,14 @@ import { CategoriesSkeleton } from "../Skeletons/CategorySkeletons/CategorySkele
 import { ProductSkeleton } from "../Skeletons/ProductSkeletons/ProductSkeletons";
 import { CartSkeleton } from "../Skeletons/CartSkeletons/CartSkeletons";
 import LottieHandlers from "../LottieHandlers/LottieHandlers";
-
+import OrderSkeletons from "../Skeletons/OrderSkeletons/OrderSkeletons";
 
 // dynamic components
 const skeletonsType = {
     cart: CartSkeleton,
     product: ProductSkeleton,
-    category: CategoriesSkeleton
+    category: CategoriesSkeleton,
+    orders: OrderSkeletons
 }
 
 interface IPropsCategories {

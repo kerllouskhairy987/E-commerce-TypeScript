@@ -16,3 +16,10 @@ export interface IProduct {
     isLiked?: boolean;
     isAuthenticated?: boolean;
 }
+
+export interface IOrderItem {
+    id: number;
+    userId: number;
+    items: IProduct[];
+    subtotal: number;
+}

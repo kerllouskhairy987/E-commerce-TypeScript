@@ -63,8 +63,8 @@ const Header = () => {
                                             title={`welcome ${user?.firstName} ${user?.lastName}`}
                                             menuVariant="dark"
                                         >
-                                            <NavDropdown.Item as={NavLink} to="profile">profile</NavDropdown.Item>
-                                            <NavDropdown.Item as={NavLink} to="orders"> Orders </NavDropdown.Item>
+                                            <NavDropdown.Item as={NavLink} to="profile" end>profile</NavDropdown.Item>
+                                            <NavDropdown.Item as={NavLink} to="profile/orders"> Orders </NavDropdown.Item>
                                             <NavDropdown.Divider />
                                             <NavDropdown.Item as={NavLink} to={"/"} onClick={() => dispatch(logout())}> Logout </NavDropdown.Item>
                                         </NavDropdown>
