@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { IProduct } from '@/interfaces';
 import type { TLoading } from '@/types';
 import actGetProductsByCatPrefix from './act/actGetProductsByCatPrefix';
+import actGetAllProducts from './act/actGetAllProducts';
 
 
 interface IProductsState {
@@ -24,6 +25,7 @@ export const ProductsSlice = createSlice({
             state.records = [];
         }
     },
+    // get products by cat prefix
     extraReducers: (builder) => {
         builder
             .addCase(actGetProductsByCatPrefix.pending, (state) => {
@@ -36,6 +38,24 @@ export const ProductsSlice = createSlice({
                 state.records = action.payload
             })
             .addCase(actGetProductsByCatPrefix.rejected, (state, action) => {
+                state.loading = "failed"
+                if (action.payload && typeof action.payload === "string") {
+                    state.error = action.payload // or as string (garbage collector will do it)
+                }
+                state.records = []
+            })
+
+            // get all products 
+            .addCase(actGetAllProducts.pending, (state) => {
+                state.loading = "pending"
+                state.error = null
+            })
+            .addCase(actGetAllProducts.fulfilled, (state, action) => {
+                state.loading = "succeeded"
+                state.error = null
+                state.records = action.payload
+            })
+            .addCase(actGetAllProducts.rejected, (state, action) => {
                 state.loading = "failed"
                 if (action.payload && typeof action.payload === "string") {
                     state.error = action.payload // or as string (garbage collector will do it)
